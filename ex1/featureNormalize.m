@@ -26,13 +26,20 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
+mu = mean(X);
+sigma = std(X);
 
+% Manual broadcast (binary singleton expansion) for Octave < 3.6.0
+n1 = bsxfun(inline('X - mu'), X, mu);
+X_norm = bsxfun(inline('n1 / sigma'), n1, sigma);
 
+% Manual looping, element by element
+%for nfeat = 1:size(X)
+%  X_norm(nfeat,:) = (X(nfeat,:) - mu) ./ sigma;
+%end;
 
-
-
-
-
+% Automatic broadcasting for Octave >= 3.6.0
+%X_norm = X - mu / sigma;
 
 % ============================================================
 
