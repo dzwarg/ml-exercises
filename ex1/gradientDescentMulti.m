@@ -17,20 +17,10 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
     
-    hyp = 0;
-    for tidx = 1:size(X,2)
-        hyp += theta(tidx) .* X(:,tidx);
-    end;
-
-    tmptheta = zeros(size(X,2), 1);
-    for xidx = 1:size(X,2)
-        tmptheta(xidx) = theta(xidx) - (alpha / m * sum((hyp - y) .* X(:,xidx)));
-    end;
+    % Properly using vectorization
+    hyp = X * theta - y;
     
-    theta = tmptheta;
-
-
-
+    theta = theta - (hyp' * X * alpha / m)';
 
 
     % ============================================================

@@ -14,7 +14,7 @@ J = 0;
 %               You should set J to the cost.
 
 tmp_vec = (X * theta) - y;
-J = 1 / (2 * m) * transpose(tmp_vec) * tmp_vec;
+J = 1 / (2 * m) * tmp_vec' * tmp_vec;
 
 
 % =========================================================================
