@@ -23,8 +23,7 @@ grad = zeros(size(theta));
 hyp = sigmoid(X * theta);
 J = 1 / m .* sum((-y .* log(hyp)) - (1-y) .* log(1-hyp));
 
-hyx = bsxfun(inline("A .* B"), (hyp .- y), X);
-grad = 1 / m * sum(hyx', 2);
+grad = 1 / m * X' * (hyp .-y);
 
 
 % =============================================================

@@ -22,11 +22,7 @@ ltheta = theta;
 ltheta(1) = 0;
 J = (1 / m .* sum((-y .* log(hyp)) - (1-y) .* log(1-hyp))) + lambda / 2 / m * sum(ltheta .^ 2);
 
-hyx = bsxfun(inline("A .* B"), (hyp .- y), X);
-grad = (1 / m * sum(hyx', 2)) + (lambda / m * theta);
-grad(1) = (1 / m * sum(hyx', 2))(1);
-
-
+grad = (1 / m * X' * (hyp .- y)) + (lambda / m * ltheta);
 
 % =============================================================
 
