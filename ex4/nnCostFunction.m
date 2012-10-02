@@ -62,13 +62,26 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+g = [ones(m, 1) X];
+g = sigmoid(g * Theta1');
+g = [ones(m, 1) g];
+g = sigmoid(g * Theta2');
 
+ltheta1 = Theta1;
+ltheta1(:,1) = 0;
+ltheta2 = Theta2;
+ltheta2(:,1) = 0;
 
+l = lambda / 2 / m * (sum(sum(ltheta1 .^ 2)) + sum(sum(ltheta2 .^ 2)));
 
+for i = 1:size(g,2)
 
+    bool_y = (y==i);
+    t1 = bool_y .* log(g(:,i));
+    t2 = (1-bool_y) .* log(1-g(:,i));
+    J = J-(1 / m) * sum(t1 + t2) + l;
 
-
-
+end;
 
 
 
