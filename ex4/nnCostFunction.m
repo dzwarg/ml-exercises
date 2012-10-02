@@ -72,18 +72,16 @@ ltheta1(:,1) = 0;
 ltheta2 = Theta2;
 ltheta2(:,1) = 0;
 
-l = lambda / 2 / m * (sum(sum(ltheta1 .^ 2)) + sum(sum(ltheta2 .^ 2)));
-
 for i = 1:size(g,2)
 
     bool_y = (y==i);
     t1 = bool_y .* log(g(:,i));
     t2 = (1-bool_y) .* log(1-g(:,i));
-    J = J-(1 / m) * sum(t1 + t2) + l;
+    J = J-(1 / m) * sum(t1 + t2);
 
 end;
 
-
+J = J + lambda / 2 / m * (sum(sum(ltheta1 .^ 2)) + sum(sum(ltheta2 .^ 2)));
 
 
 
