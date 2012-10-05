@@ -62,32 +62,37 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-g = [ones(m, 1) X];
-g = sigmoid(g * Theta1');
-g = [ones(m, 1) g];
-g = sigmoid(g * Theta2');
+a1 = X;
+z2 = [ones(m, 1) a1] * Theta1';
+a2 = sigmoid(z2);
+z3 = [ones(m, 1) a2] * Theta2';
+a3 = sigmoid(z3);
 
 ltheta1 = Theta1;
 ltheta1(:,1) = 0;
 ltheta2 = Theta2;
 ltheta2(:,1) = 0;
 
-for i = 1:size(g,2)
-
-    bool_y = (y==i);
-    t1 = bool_y .* log(g(:,i));
-    t2 = (1-bool_y) .* log(1-g(:,i));
-    J = J-(1 / m) * sum(t1 + t2);
-
-end;
+Y = eye(num_labels)(y,:);
+t1 = Y .* log(a3);
+t2 = (1-Y) .* log(1-a3);
+J = -(1 / m) * sum(sum(t1 + t2));
 
 J = J + lambda / 2 / m * (sum(sum(ltheta1 .^ 2)) + sum(sum(ltheta2 .^ 2)));
 
 
+d3 = zeros(m,1);
+d2 = zeros(m,1);
 
+delta = 0;
 
-
-
+%for t = 1:m                 % 1:5000
+%    for k = 1:num_labels        % 1:10
+%        bool_y = (y==k)
+%        d3(k) = a3(t,k) - bool_y(t)
+%        d2(k) = Theta2' * d3(k) .* sigmoidGradient(z2(t,:))
+%    end;
+%end;
 
 
 
