@@ -88,9 +88,15 @@ d2 = (d3 * Theta2) .* sigmoidGradient([ones(m,1) z2]);
 
 %keyboard()
 
-Theta2_grad += (d3' * [ones(m,1) a2]) ./ m;
-Theta1_grad += ((d2(:,2:end))' * [ones(m,1) a1]) ./ m;
+Theta2_grad += d3' * [ones(m,1) a2];
+Theta1_grad += (d2(:,2:end))' * [ones(m,1) a1];
 
+% Add regularization
+Theta2_grad += lambda * ltheta2;
+Theta1_grad += lambda * ltheta1;
+
+Theta2_grad = Theta2_grad ./ m;
+Theta1_grad = Theta1_grad ./ m;
 
 % -------------------------------------------------------------
 
