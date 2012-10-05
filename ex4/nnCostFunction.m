@@ -73,6 +73,7 @@ ltheta1(:,1) = 0;
 ltheta2 = Theta2;
 ltheta2(:,1) = 0;
 
+% create a logical matrix
 Y = eye(num_labels)(y,:);
 t1 = Y .* log(a3);
 t2 = (1-Y) .* log(1-a3);
@@ -81,19 +82,14 @@ J = -(1 / m) * sum(sum(t1 + t2));
 J = J + lambda / 2 / m * (sum(sum(ltheta1 .^ 2)) + sum(sum(ltheta2 .^ 2)));
 
 
-d3 = zeros(m,1);
-d2 = zeros(m,1);
 
-delta = 0;
+d3 = a3 - Y;
+d2 = (d3 * Theta2) .* sigmoidGradient([ones(m,1) z2]);
 
-%for t = 1:m                 % 1:5000
-%    for k = 1:num_labels        % 1:10
-%        bool_y = (y==k)
-%        d3(k) = a3(t,k) - bool_y(t)
-%        d2(k) = Theta2' * d3(k) .* sigmoidGradient(z2(t,:))
-%    end;
-%end;
+%keyboard()
 
+Theta2_grad += (d3' * [ones(m,1) a2]) ./ m;
+Theta1_grad += ((d2(:,2:end))' * [ones(m,1) a1]) ./ m;
 
 
 % -------------------------------------------------------------
