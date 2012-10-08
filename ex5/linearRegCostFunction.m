@@ -24,6 +24,7 @@ ltheta = theta;
 ltheta(1) = 0;
 J = (tmp_vec' * tmp_vec + lambda * sum(ltheta .^ 2) ) / (2 * m);
 
+grad = (X' * tmp_vec + lambda * ltheta) / m;
 
 % =========================================================================
 
