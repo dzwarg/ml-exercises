@@ -40,7 +40,20 @@ error_val = zeros(length(lambda_vec), 1);
 %
 
 
+for i=1:length(lambda_vec)
+    theta = [1;1];
 
+    % train on 1:i training examples
+    theta = trainLinearReg(X,y, lambda_vec(i));
+    
+    % error of training set
+    [cost, tmp] = linearRegCostFunction(X, y, theta, 0);
+    error_train(i) = cost;
+    
+    % error of validation set
+    [cost, tmp] = linearRegCostFunction(Xval, yval, theta, 0);
+    error_val(i) = cost;
+end;
 
 
 
