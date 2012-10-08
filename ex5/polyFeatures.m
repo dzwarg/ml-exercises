@@ -15,9 +15,9 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
-
-
-
+powers = 1:p;
+powers = powers(ones(numel(X), 1), :);
+X_poly = X(:, ones(1,p)) .^ powers;
 
 
 % =========================================================================
