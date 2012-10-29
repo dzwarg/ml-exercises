@@ -21,11 +21,10 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for i = 1:size(X,1)
+    [mn,ix] = min(sum(bsxfun(inline("(A-B).*(A-B)"), X(i,:), centroids),2));
+    idx(i) = ix;
+end;
 
 % =============================================================
 
