@@ -26,12 +26,14 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+C = eye(K)(idx,:);
 
-
-
-
-
-
+for i = 1:K
+    [x y] = find(C(:,i));
+    total = sum(X(x,:));
+    count = length(y);
+    centroids(i,:) = total / count;
+end;
 
 % =============================================================
 
