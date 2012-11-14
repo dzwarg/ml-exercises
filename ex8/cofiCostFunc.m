@@ -44,12 +44,13 @@ Theta_grad = zeros(size(Theta));
 tmp_vec = X * Theta' - Y;
 J = sum(sum(tmp_vec .* tmp_vec .* R))/2;
 
+% Regularize the cost function
 J += lambda / 2 * sum(sum(Theta .^ 2));
 J += lambda / 2 * sum(sum(X .^ 2));
 
 % add gradient for only rated movies
-X_grad += ((X * Theta' - Y) .* R) * Theta;
-Theta_grad += ((X * Theta' - Y) .* R)' * X;
+X_grad += ((X * Theta' - Y) .* R) * Theta + lambda * X;
+Theta_grad += ((X * Theta' - Y) .* R)' * X + lambda * Theta;
 
 
 
