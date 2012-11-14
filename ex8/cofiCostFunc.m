@@ -40,19 +40,14 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
-%"size of X"
-%size(X)
+% ".* R" multiplies 1 by the matrix in all places where a rating was placed
 
-%"size of Theta"
-%size(Theta)
-
-rated = (R == 1);
-tmp_vec = (X * Theta' - Y)(rated);
-J = sum(tmp_vec .* tmp_vec)/2;
+tmp_vec = X * Theta' - Y;
+J = sum(sum(tmp_vec .* tmp_vec .* R))/2;
 
 
-
-
+X_grad += ((X * Theta' - Y) .* R) * Theta;
+Theta_grad += ((X * Theta' - Y) .* R)' * X;
 
 
 
