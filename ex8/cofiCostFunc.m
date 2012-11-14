@@ -40,7 +40,15 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+%"size of X"
+%size(X)
 
+%"size of Theta"
+%size(Theta)
+
+rated = (R == 1);
+tmp_vec = (X * Theta' - Y)(rated);
+J = sum(tmp_vec .* tmp_vec)/2;
 
 
 
